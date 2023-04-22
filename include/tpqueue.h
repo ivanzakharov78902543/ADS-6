@@ -8,7 +8,7 @@ class TPQueue {
   int first, last, count;
 
  public:
-  TPQueue(): arr(new T[size]), first(0),last(0),count(0) {}
+  TPQueue(): arr(new T[size]), first(0), last(0), count(0) {}
   void push(const T & value) {
       if (count == size) {
         throw std::string("FULL!");
@@ -29,7 +29,7 @@ class TPQueue {
     }
     T& pop() {
       if (count == 0) {
-        throw std::string("Empty!")
+        throw std::string("Empty!");
       } else {
          --count;
         return arr[first++ % size];
