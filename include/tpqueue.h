@@ -2,7 +2,6 @@
 #ifndef INCLUDE_TPQUEUE_H_
 #define INCLUDE_TPQUEUE_H_
 #include <string>
-using namespace std;
 template<typename T, int size>
 class TPQueue {
   T* arr;
@@ -30,7 +29,7 @@ class TPQueue {
     }
     T& pop() {
       if (count == 0) {
-        thorw std::string("Empty!")
+        throw std::string("Empty!")
       } else {
          --count;
         return arr[first++ % size];
