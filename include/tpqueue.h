@@ -4,40 +4,36 @@
 using namespace std;
 template<typename T, int size>
 class TPQueue {
-  private:
-    enum { EMPTY = -1, FULL = 999 };
-    SYM q[FULL + 1];
-    int first;
-  public:
-     SYM pop() {
-        if (IsEmpty())
-            return SYM();
-        return q[first--];
-    }
-    bool IsEmpty() {
-        return first == EMPTY;
-    }
-    bool IsFull() {
-        return first == FULL;
-    }
-    void push(const SYM& value) {
-        int i;
-        for (i = first; i >= 0; i--)
-            if (q[i].prior > value.prior)
-                break;
-        if (IsFull()) {
-            if (i != -1) {
-                for (int j = 0; j < i; j++)
-                    q[j] = q[j + 1];
-                q[i] = value;
-            }
-        } else {
-            for (int j = first; j > i; j--)
-                q[j + 1] = q[j];
+  T* arr;
+  int first, last, count;
 
-            q[i + 1] = value;
-            first++;
-        }
+ public:
+  TPQueue(): arr(new T[size]), first(0),last(0),count(0) {}
+  void push(const T & value) {
+      if (count == size) {
+        throw std::string("FULL!");
+      }
+      ++count;
+      int m = last;
+      for (int i = first; i < last; i++) {
+        if (arr[i].prior < value.prior) {
+      m = i;
+      break;
+    }
+      }
+      for (int i = last; i > m; i--) {
+        arr[i % size] = arr[(i - 1) % size];
+      }
+      arr[m % size] = value;
+      ++last;
+    }
+    T& pop() {
+      if (count == 0) {
+        thorw std::string("Empty!")
+      } else {
+         --count;
+        return arr[first++ % size];
+      }
     }
 };
 struct SYM {
